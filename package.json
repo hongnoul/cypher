@@ -5,7 +5,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "wxt",
+    "dev": "cross-env CHROME_PATH=\"C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe\" wxt",
     "dev:firefox": "wxt -b firefox",
     "build": "wxt build",
     "build:firefox": "wxt build -b firefox",
@@ -22,6 +22,7 @@
     "@types/react": "^19.2.13",
     "@types/react-dom": "^19.2.3",
     "@wxt-dev/module-react": "^1.1.5",
+    "cross-env": "^10.1.0",
     "typescript": "^5.9.3",
     "wxt": "^0.20.17"
   }

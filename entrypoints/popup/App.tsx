@@ -1,34 +1,40 @@
 import { useState } from 'react';
-import reactLogo from '@/assets/react.svg';
-import wxtLogo from '/wxt.svg';
 import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [status, setStatus] = useState('Not tested');
+
+  const testApi = async () => {
+    setStatus('Calling API...');
+    try {
+      const res = await fetch('http://localhost:8787/health');
+      const data = await res.json();
+      setStatus(JSON.stringify(data, null, 2));
+    } catch (error) {
+      setStatus(`API call failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://wxt.dev" target="_blank">
-          <img src={wxtLogo} className="logo" alt="WXT logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>WXT + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the WXT and React logos to learn more
-      </p>
-    </>
+    <main style={{ minWidth: 320, padding: 16, fontFamily: 'Arial, sans-serif' }}>
+      <h2 style={{ marginTop: 0 }}>Cypher API Smoke Test</h2>
+      <button onClick={testApi} style={{ padding: '8px 12px', cursor: 'pointer' }}>
+        Test API
+      </button>
+      <pre
+        style={{
+          marginTop: 12,
+          background: '#111827',
+          color: '#e5e7eb',
+          padding: 10,
+          borderRadius: 6,
+          whiteSpace: 'pre-wrap',
+          wordBreak: 'break-word',
+        }}
+      >
+        {status}
+      </pre>
+    </main>
   );
 }
 
